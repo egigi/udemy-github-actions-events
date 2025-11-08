@@ -3,6 +3,10 @@ on:
   pull_request:
     types: 
       - opened
+    branches: 
+      - master # main
+      - 'dev-*' # dev-new dev-this-is-new
+      - 'feat/**' # feat/new feat/new/button      
   workflow_dispatch:
     inputs:
       logLevel:
@@ -14,12 +18,19 @@ on:
         - info
         - warning
         - debug
+  push:
+    branches: 
+      - master # main
+      - 'dev-*' # dev-new dev-this-is-new
+      - 'feat/**' # feat/new feat/new/button
+    paths-ignore:
+      - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
-        run: echo '${{ toJSON(github.event) }}'
+        run: echo ''${{ toJSON(github.event) }}'
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
